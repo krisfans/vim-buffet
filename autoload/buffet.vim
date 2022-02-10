@@ -63,7 +63,7 @@ function! buffet#update()
         let buffer = {}
         let buffer.head = split(buffer_head, s:path_separator)
         let buffer.not_new = len(buffer_tail)
-        let buffer.tail = buffer.not_new ? buffer_tail : g:buffet_new_buffer_name 
+        let buffer.tail = buffer.not_new ? buffer_tail : g:buffet_new_buffer_name
 
         " Update the buffers map
         let s:buffers[buffer_id] = buffer
@@ -294,7 +294,11 @@ function! s:Render()
 
         let icon = ""
         if g:buffet_use_devicons && s:IsBufferElement(elem)
-            let icon = " " . WebDevIconsGetFileTypeSymbol(elem.value)
+            if exists("*nerdfont#find")
+                let icon = " " . nerdfont#find(elem.value)
+            elseif exists("*WebDevIconsGetFileTypeSymbol")
+                let icon = " " . WebDevIconsGetFileTypeSymbol(elem.value)
+            endif
         elseif elem.type == "Tab"
             let icon = " " . g:buffet_tab_icon
         endif
