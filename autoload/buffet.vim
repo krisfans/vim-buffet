@@ -294,7 +294,7 @@ function! s:Render()
 
         let icon = ""
         if g:buffet_use_devicons && s:IsBufferElement(elem)
-            if exists("*nerdfont#find")
+            if &rtp =~ 'nerdfont.vim'
                 let icon = " " . nerdfont#find(elem.value)
             elseif exists("*WebDevIconsGetFileTypeSymbol")
                 let icon = " " . WebDevIconsGetFileTypeSymbol(elem.value)
